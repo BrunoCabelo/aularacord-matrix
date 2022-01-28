@@ -29,31 +29,7 @@ export default function PaginaInicial() {
     const [stof, setStof] = React.useState('flex');
     const [pagechange, setPagechange] = React.useState(true);
     const roteamento = useRouter();
-    var [RGB, setRGB] = React.useState('000000000');;
-    var r = 0;
-    var g = 0;
-    var b = 0;
-    
-    function resetRGB(component){
-      if(component == 255){
-        component = 0;
-      }
-      return component.toString();
-    }
-
-
-    setInterval(function (){
-      r = r + 1;
-      g = g + 1;
-      b = b + 1;
-          
-      var R = resetRGB(r);
-      var G = resetRGB(g);
-      var B = resetRGB(b);
-     setRGB();
-     
-     
-    }, 800)  
+   
   
     return (
       <>
@@ -88,7 +64,7 @@ export default function PaginaInicial() {
                 if(pagechange){
                   roteamento.push('/chat');  
                 }else{
-                  alert("Digite um usuario valido")
+                  alert("Digite um usuario do github valido")
                 }
                 
               }}
