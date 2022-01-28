@@ -1,34 +1,9 @@
+import React from 'react';
+import { useRouter } from 'next/router'
 import appConfig from '../config.json'
 import {Box, Button, Text, TextField, Image} from '@skynexui/components'
 
-function GlobalStyle(){
-    return(
-        <style global jsx>{`
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          list-style: none;
-        }
-        body {
-          font-family: 'Open Sans', sans-serif;
-        }
-        /* App fit Height */ 
-        html, body, #__next {
-          min-height: 100vh;
-          display: flex;
-          flex: 1;
-        }
-        #__next {
-          flex: 1;
-        }
-        #__next > * {
-          flex: 1;
-        }
-        /* ./App fit Height */ 
-      `}</style>
-    )
-}
+
 
 function Titulo(props){
     const Tag = props.tag || 'h1';
@@ -47,27 +22,14 @@ function Titulo(props){
 }
 
 
-/* function HomePage() {
-    //JSX
-    return (
-    <div>
-        <GlobalStyle />
-        <Titulo tag="h2">Boas vindas de volta</Titulo>
-        <h2>Discord Matrix</h2>
-
-        
-    </div>
-    )
-}
-
-export default HomePage; */
 
 export default function PaginaInicial() {
-    const username = 'peas';
-  
+    //const username = 'BrunoCabelo';
+    const [username, setUsername] = React.useState('BrunoCabelo');
+    const roteamento = useRouter();
+    
     return (
       <>
-        <GlobalStyle />
         <Box
           styleSheet={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -94,6 +56,11 @@ export default function PaginaInicial() {
             {/* Formulário */}
             <Box
               as="form"
+              onSubmit={function (infosEvent){
+                infosEvent.preventDefault();
+                roteamento.push('/chat');
+                
+              }}
               styleSheet={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                 width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
@@ -103,9 +70,15 @@ export default function PaginaInicial() {
               <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
                 {appConfig.name}
               </Text>
-  
+              
+
               <TextField
                 fullWidth
+                value={username} onChange={function handler(event){
+                const valor = event.target.value;
+                setUsername(valor);
+
+              }}
                 textFieldColors={{
                   neutral: {
                     textColor: appConfig.theme.colors.neutrals[200],
