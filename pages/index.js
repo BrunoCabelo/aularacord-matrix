@@ -26,18 +26,45 @@ function Titulo(props){
 export default function PaginaInicial() {
     //const username = 'BrunoCabelo';
     const [username, setUsername] = React.useState('BrunoCabelo');
+    const [stof, setStof] = React.useState('flex');
+    const [pagechange, setPagechange] = React.useState(true);
     const roteamento = useRouter();
+    var [RGB, setRGB] = React.useState('000000000');;
+    var r = 0;
+    var g = 0;
+    var b = 0;
     
+    function resetRGB(component){
+      if(component == 255){
+        component = 0;
+      }
+      return component.toString();
+    }
+
+
+    setInterval(function (){
+      r = r + 1;
+      g = g + 1;
+      b = b + 1;
+          
+      var R = resetRGB(r);
+      var G = resetRGB(g);
+      var B = resetRGB(b);
+     setRGB();
+     
+     
+    }, 800)  
+  
     return (
       <>
+       
         <Box
-          styleSheet={{
+           styleSheet={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            backgroundColor: appConfig.theme.colors.primary[500],
-            backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
-            backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
+            //backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
           }}
-        >
+         >
+         
           <Box
             styleSheet={{
               display: 'flex',
@@ -58,7 +85,11 @@ export default function PaginaInicial() {
               as="form"
               onSubmit={function (infosEvent){
                 infosEvent.preventDefault();
-                roteamento.push('/chat');
+                if(pagechange){
+                  roteamento.push('/chat');  
+                }else{
+                  alert("Digite um usuario valido")
+                }
                 
               }}
               styleSheet={{
@@ -76,6 +107,14 @@ export default function PaginaInicial() {
                 fullWidth
                 value={username} onChange={function handler(event){
                 const valor = event.target.value;
+                  if (valor.length <= 2) {
+                    setStof('none');
+                    setPagechange(false);
+                  }else{
+                    setStof('flex');
+                    setPagechange(true);
+                  }
+                
                 setUsername(valor);
 
               }}
@@ -101,12 +140,12 @@ export default function PaginaInicial() {
               />
             </Box>
             {/* Formulário */}
-  
+           
   
             {/* Photo Area */}
             <Box
               styleSheet={{
-                display: 'flex',
+                display: stof,
                 flexDirection: 'column',
                 alignItems: 'center',
                 maxWidth: '200px',
@@ -141,6 +180,8 @@ export default function PaginaInicial() {
             {/* Photo Area */}
           </Box>
         </Box>
+
+        
       </>
     );
   }
