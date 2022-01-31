@@ -3,9 +3,9 @@ import React from 'react';
 import appConfig from '../config.json';
 
 export default function ChatPage() {
-    // Sua lógica vai aqui
-
-    // ./Sua lógica vai aqui
+    
+    const [mensagem, setMensagem] = React.useState('');
+    
     return (
         <Box
             styleSheet={{
@@ -50,20 +50,24 @@ export default function ChatPage() {
                             alignItems: 'center',
                         }}
                     >
-                        <TextField
-                            placeholder="Insira sua mensagem aqui..."
-                            type="textarea"
-                            styleSheet={{
-                                width: '100%',
-                                border: '0',
-                                resize: 'none',
-                                borderRadius: '5px',
-                                padding: '6px 8px',
-                                backgroundColor: appConfig.theme.colors.neutrals[800],
-                                marginRight: '12px',
-                                color: appConfig.theme.colors.neutrals[200],
-                            }}
-                        />
+                            <TextField
+                                value={mensagem} on onChange={function handler(event){
+                                    const valor = event.target.value;
+                                    setMensagem(valor);
+                                }}
+                                placeholder="Insira sua mensagem aqui..."
+                                type="textarea"
+                                styleSheet={{
+                                    width: '100%',
+                                    border: '0',
+                                    resize: 'none',
+                                    borderRadius: '5px',
+                                    padding: '6px 8px',
+                                    backgroundColor: appConfig.theme.colors.neutrals[800],
+                                    marginRight: '12px',
+                                    color: appConfig.theme.colors.neutrals[200],
+                                }}
+                            />
                     </Box>
                 </Box>
             </Box>
